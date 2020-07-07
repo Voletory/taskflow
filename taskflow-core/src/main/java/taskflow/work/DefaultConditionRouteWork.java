@@ -7,7 +7,7 @@ import taskflow.work.context.WorkContext;
  * @author steven.zhu 2020/7/4 10:36.
  * @类描述：
  */
-public class DefaultRouteWork extends AbstractWork {
+public class DefaultConditionRouteWork extends AbstractWork {
     // 初始任务；一般在次初始化一些参数
     private TaskRoutingWrap start;
     // 结束任务；无论是否正常完成，该任务都会执行;可再次封装返回结果

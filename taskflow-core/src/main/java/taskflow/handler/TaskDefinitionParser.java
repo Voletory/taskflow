@@ -1,0 +1,63 @@
+package taskflow.handler;
+
+import org.springframework.beans.factory.config.BeanDefinition;
+import org.springframework.beans.factory.xml.BeanDefinitionParser;
+import org.springframework.beans.factory.xml.ParserContext;
+import org.w3c.dom.Element;
+import taskflow.config.TaskRegister;
+import taskflow.config.bean.TaskDefinition;
+import taskflow.enums.ConfigSource;
+import taskflow.enums.Tag;
+import taskflow.enums.TagAttribute;
+import taskflow.task.TaskRoutingWrap;
+
+import java.util.HashSet;
+import java.util.Set;
+
+import static org.springframework.beans.factory.xml.BeanDefinitionParserDelegate.ID_ATTRIBUTE;
+import static org.springframework.beans.factory.xml.BeanDefinitionParserDelegate.REF_ATTRIBUTE;
+
+/**
+ * 处理<tf:task>标签 对于ref的Task，使用{@link TaskRoutingWrap}进行包装 <br/>
+ * Created by lizhou on 2017/3/14/014. <br/>
+ * updated by fuli on 2018/5 <br/>
+ */
+
+public class TaskDefinitionParser implements BeanDefinitionParser, TaskRegister {
+	public BeanDefinition parse(Element element, ParserContext parserContext) {
+		String id = element.getAttribute(ID_ATTRIBUTE);
+		String ref = element.getAttribute(REF_ATTRIBUTE);
+		String method = element.getAttribute(TagAttribute.TASK_METHOD.NAME);
+//		String extra = element.getAttribute(TagAttribute.TASK_EXTRA.NAME);
+
+		TaskDefinition taskDefinition=new TaskDefinition();
+		taskDefinition.setTaskId(id);
+		taskDefinition.setTaskBeanId(ref);
+		taskDefinition.setMethod(method);
+//		taskDefinition.setExtra(extra);
+		Set<TaskDefinition.RouteDefinition> routeDefinitions=new HashSet<>();
+		int length = element.getChildNodes().getLength();
+		for (int i = 0; i < length; i++) {
+			org.w3c.dom.Node node = element.getChildNodes().item(i);
+			if (node.getNodeType() == org.w3c.dom.Node.ELEMENT_NODE) {
+				Element e = (Element) node;
+				if (Tag.ROUTING.getTagName().equals(e.getTagName())) {
+					TaskDefinition.RouteDefinition routeDefinition=new TaskDefinition.RouteDefinition();
+					routeDefinition.setKey(e.getAttribute(TagAttribute.TASK_ROUTING_KEY.NAME));
+					routeDefinition.setToTask(e.getAttribute(TagAttribute.TASK_ROUTING_TO_TASK.NAME));
+					routeDefinition.setPatten(e.getAttribute(TagAttribute.TASK_ROUTING_PATTEN.NAME));
+					routeDefinition.setExtra(e.getAttribute(TagAttribute.TASK_ROUTING_EXTRA.NAME));
+					routeDefinitions.add(routeDefinition);
+				}
+			}
+		}
+		taskDefinition.setRouteDefinitions(routeDefinitions);
+		return registerTask(parserContext.getRegistry(), taskDefinition);
+	}
+
+	@Override
+	public ConfigSource getConfigSource() {
+		return ConfigSource.XML;
+	}
+}
+
