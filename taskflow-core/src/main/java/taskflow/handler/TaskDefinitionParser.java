@@ -4,7 +4,7 @@ import org.springframework.beans.factory.config.BeanDefinition;
 import org.springframework.beans.factory.xml.BeanDefinitionParser;
 import org.springframework.beans.factory.xml.ParserContext;
 import org.w3c.dom.Element;
-import taskflow.config.TaskRegister;
+import taskflow.config.register.TaskRegister;
 import taskflow.config.bean.TaskDefinition;
 import taskflow.enums.ConfigSource;
 import taskflow.enums.Tag;

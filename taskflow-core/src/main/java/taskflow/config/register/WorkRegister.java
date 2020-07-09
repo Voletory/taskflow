@@ -1,4 +1,4 @@
-package taskflow.config;
+package taskflow.config.register;
 
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.config.*;
@@ -8,7 +8,6 @@ import org.springframework.beans.factory.support.ManagedMap;
 import org.springframework.beans.factory.support.RootBeanDefinition;
 import org.springframework.util.Assert;
 import taskflow.config.bean.WorkDefinition;
-import taskflow.config.register.RegisterLogger;
 import taskflow.constants.WorkPropName;
 import taskflow.enums.TFLogType;
 import taskflow.work.DefaultConditionRouteWork;

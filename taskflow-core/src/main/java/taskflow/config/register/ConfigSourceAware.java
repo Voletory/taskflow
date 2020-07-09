@@ -1,4 +1,4 @@
-package taskflow.config;
+package taskflow.config.register;
 
 import taskflow.enums.ConfigSource;
 

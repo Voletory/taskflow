@@ -1,4 +1,4 @@
-package taskflow.config;
+package taskflow.config.register;
 
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.config.BeanDefinition;
@@ -10,7 +10,6 @@ import org.springframework.beans.factory.support.BeanDefinitionRegistry;
 import org.springframework.beans.factory.support.ManagedList;
 import org.springframework.beans.factory.support.RootBeanDefinition;
 import taskflow.config.bean.TaskDefinition;
-import taskflow.config.register.RegisterLogger;
 import taskflow.constants.RoutingConditionPropName;
 import taskflow.constants.TaskRoutingPropName;
 import taskflow.enums.TFLogType;

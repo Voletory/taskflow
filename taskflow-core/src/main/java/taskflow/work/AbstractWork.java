@@ -4,6 +4,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import taskflow.exception.TaskFlowException;
 import taskflow.task.TaskRoutingWrap;
+import taskflow.work.context.AbstractWorkContext;
 import taskflow.work.context.DefaultMapWorkContext;
 import taskflow.work.context.TaskTrace;
 import taskflow.work.context.WorkContext;
@@ -29,10 +30,10 @@ public abstract class AbstractWork implements Work {
      * work的task快照
      */
     protected List<TaskTrace> taskRecords;
+    private boolean traceable;
 
     public AbstractWork() {
         workContext = new DefaultMapWorkContext(this.getClass());
-        taskRecords = new ArrayList<>();
     }
 
     @Override
@@ -46,7 +47,7 @@ public abstract class AbstractWork implements Work {
 
     @Override
     public void dealException(Exception workException) {
-        workException.printStackTrace();
+        workContext.holderException(((AbstractWorkContext)workContext).getCurrentTask(),workException);
         if (logger.isErrorEnabled()) {
             logger.error("work:" + name,workException);
         }
@@ -58,10 +59,20 @@ public abstract class AbstractWork implements Work {
      */
     @Override
     public void receive(TaskRoutingWrap taskRoutingWrap) {
+        ((AbstractWorkContext)workContext).setCurrentTask(taskRoutingWrap.getName());
         if (maxTasks <= executedTasks++) {
             throw new TaskFlowException("max tasks is:" + maxTasks);
         }
-        taskRecords.add(new TaskTrace(taskRoutingWrap.getName(),workContext.toString()));
+        if (traceable) {
+            if (taskRecords ==null) {
+             taskRecords = new ArrayList<>();
+            }
+            taskRecords.add(new TaskTrace(taskRoutingWrap.getName(), workContext.toString()));
+        }
+    }
+
+    public void setTraceable(boolean traceable) {
+        this.traceable = traceable;
     }
 
     public List<TaskTrace> getTaskRecords() {

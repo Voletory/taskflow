@@ -43,6 +43,10 @@ public abstract class AbstractWorkContext implements WorkContext {
         this.currentTask = previousTask;
     }
 
+    public String getCurrentTask() {
+        return currentTask;
+    }
+
     @Override
     public void holderException(String taskName, Exception exception) {
         if (exceptions == null) {

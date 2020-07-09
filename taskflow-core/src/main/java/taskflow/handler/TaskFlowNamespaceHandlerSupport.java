@@ -8,6 +8,8 @@ import taskflow.enums.Tag;
  * Created by lizhou on 2017/3/14/014.
  */
 public class TaskFlowNamespaceHandlerSupport extends NamespaceHandlerSupport {
+
+	@Override
 	public void init() {
 		registerBeanDefinitionParser(Tag.TASK.VALUE, new TaskDefinitionParser());
 		registerBeanDefinitionParser(Tag.WORK.VALUE, new WorkDefinitionParser());
