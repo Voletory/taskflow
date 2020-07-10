@@ -1,2 +1,2 @@
 taskflow:
-  classpath: config/taskflow.xml
+  path: config/taskflow.xml

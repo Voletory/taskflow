@@ -1,4 +1,4 @@
-package taskflow.boot.starter.borrow;
+package taskflow.boot.starter.biz.borrow;
 
 import taskflow.boot.starter.bean.BorrowRequest;
 import taskflow.work.Work;

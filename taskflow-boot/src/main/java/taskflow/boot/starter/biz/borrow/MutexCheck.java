@@ -1,4 +1,4 @@
-package taskflow.boot.starter.borrow;
+package taskflow.boot.starter.biz.borrow;
 
 /**
  * @author steven.zhu 2020/7/10 13:28.

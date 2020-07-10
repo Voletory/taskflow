@@ -17,12 +17,17 @@ import java.util.Map;
  * @类描述：
  */
 public class TaskFlowXmlBeanFactoryPostProcessor implements BeanFactoryPostProcessor {
+    private String taskFlowPath;
+
+    public TaskFlowXmlBeanFactoryPostProcessor(String taskFlowPath) {
+        this.taskFlowPath = taskFlowPath;
+    }
 
     @Override
     public void postProcessBeanFactory(ConfigurableListableBeanFactory configurableListableBeanFactory) throws BeansException {
         if (configurableListableBeanFactory instanceof BeanDefinitionRegistry) {
             XmlBeanDefinitionReader xmlBeanDefinitionReader = new XmlBeanDefinitionReader((BeanDefinitionRegistry) configurableListableBeanFactory);
-            xmlBeanDefinitionReader.loadBeanDefinitions(new ClassPathResource("config/taskflow.xml"));
+            xmlBeanDefinitionReader.loadBeanDefinitions(new ClassPathResource(taskFlowPath));
         }
     }
 }

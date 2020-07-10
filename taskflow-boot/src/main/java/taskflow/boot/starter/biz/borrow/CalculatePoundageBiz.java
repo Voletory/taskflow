@@ -1,4 +1,4 @@
-package taskflow.boot.starter.borrow;
+package taskflow.boot.starter.biz.borrow;
 
 /**
  * @author steven.zhu 2020/7/10 13:30.
@@ -17,5 +17,12 @@ public class CalculatePoundageBiz {
      */
     public void calculatorAverageCapital() {
         System.out.println("等额本金");
+    }
+
+    /**
+     * 等额本息
+     */
+    public void calculatorAverageCapitalPlusInterest() {
+        System.out.println("等额本息");
     }
 }

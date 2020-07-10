@@ -7,16 +7,17 @@
 
     <tf:workFactory/>
 
-    <bean id="borrow" class="taskflow.boot.starter.borrow.BorrowBiz"/>
-    <bean id="borrowEnd" class="taskflow.boot.starter.borrow.BorrowEnd"/>
-    <bean id="calculatePoundageBiz" class="taskflow.boot.starter.borrow.CalculatePoundageBiz"/>
-    <bean id="mutexCheck" class="taskflow.boot.starter.borrow.MutexCheck"/>
+    <bean id="borrow" class="taskflow.boot.starter.biz.borrow.BorrowBiz"/>
+    <bean id="borrowEnd" class="taskflow.boot.starter.biz.borrow.BorrowEnd"/>
+    <bean id="calculatePoundageBiz" class="taskflow.boot.starter.biz.borrow.CalculatePoundageBiz"/>
+    <bean id="mutexCheck" class="taskflow.boot.starter.biz.borrow.MutexCheck"/>
 
     <tf:task id="borrowTask" ref="borrow" method="borrow"/>
     <tf:task id="borrowEndTask" ref="borrowEnd" method="endTask"/>
     <tf:task id="calculateDayPoundageTask" ref="calculatePoundageBiz" method="calculatorByDay"/>
     <tf:task id="calculateAverageCapitalPoundageTask" ref="calculatePoundageBiz" method="calculatorAverageCapital"/>
     <tf:task id="mutexCheckTask" ref="mutexCheck" method="checkMutex"/>
+    <tf:task id="calculatorAverageCapitalPlusInterestTask" ref="calculatePoundageBiz" method="calculatorAverageCapitalPlusInterest"/>
 
     <tf:work id="applyDayWork" class="taskflow.work.SequentialWork">
         <tf:task-ref value="mutexCheckTask"/>

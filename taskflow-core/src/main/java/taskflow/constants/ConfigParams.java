@@ -8,4 +8,5 @@ public class ConfigParams {
 	
 	public static final String LOG_PRINTABLE="taskflow.log.printable";
 	public static final String LOG_PRINT_DETAIL="taskflow.log.printDetail";
+	public static final String TASKFLOW_PATH="taskflow.path";
 }
