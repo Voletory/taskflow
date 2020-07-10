@@ -1,7 +1,9 @@
 package taskflow.annotation;
 
 import org.springframework.context.annotation.Import;
+import taskflow.config.ModeImportSelector;
 import taskflow.config.TaskFlowConfiguration;
+import taskflow.enums.ConfigSource;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
@@ -15,6 +17,9 @@ import java.lang.annotation.Target;
  */
 @Target({ElementType.TYPE})
 @Retention(RetentionPolicy.RUNTIME)
-@Import(TaskFlowConfiguration.class)
+@Import(ModeImportSelector.class)
 public @interface EnableTaskFlow {
+
+    ConfigSource source() default ConfigSource.XML;
+
 }

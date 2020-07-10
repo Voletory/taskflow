@@ -44,7 +44,7 @@
     </xsd:element>
 
     <xsd:attributeGroup name="taskAttributes">
-        <xsd:attribute name="ref" type="xsd:IDREF" use="required">
+        <xsd:attribute name="ref" type="xsd:string" use="required">
             <xsd:annotation>
                 <!--<xsd:appinfo>-->
                 <!--<tool:annotation kind="ref">-->
@@ -53,7 +53,7 @@
                 <!--</xsd:appinfo>-->
             </xsd:annotation>
         </xsd:attribute>
-        <xsd:attribute name="method" type="xsd:string" use="optional">
+        <xsd:attribute name="method" type="xsd:string" use="required">
             <xsd:annotation>
             </xsd:annotation>
         </xsd:attribute>

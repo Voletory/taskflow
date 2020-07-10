@@ -7,10 +7,10 @@
 
     <tf:workFactory/>
 
-    <bean id="borrow" class="taskflow.xml.test.BorrowBiz"/>
-    <bean id="borrowEnd" class="taskflow.xml.test.BorrowEnd"/>
-    <bean id="calculatePoundageBiz" class="taskflow.xml.test.CalculatePoundageBiz"/>
-    <bean id="mutexCheck" class="taskflow.xml.test.MutexCheck"/>
+    <bean id="borrow" class="taskflow.boot.starter.borrow.BorrowBiz"/>
+    <bean id="borrowEnd" class="taskflow.boot.starter.borrow.BorrowEnd"/>
+    <bean id="calculatePoundageBiz" class="taskflow.boot.starter.borrow.CalculatePoundageBiz"/>
+    <bean id="mutexCheck" class="taskflow.boot.starter.borrow.MutexCheck"/>
 
     <tf:task id="borrowTask" ref="borrow" method="borrow"/>
     <tf:task id="borrowEndTask" ref="borrowEnd" method="endTask"/>
