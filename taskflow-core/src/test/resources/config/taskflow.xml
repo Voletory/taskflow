@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:tf="http://www.xteam.org/taskflow"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+        http://www.xteam.org/taskflow http://www.xteam.org/taskflow/tf.xsd">
+
+    <tf:workFactory/>
+
+    <bean id="borrow" class="taskflow.xml.test.BorrowBiz"/>
+    <bean id="borrowEnd" class="taskflow.xml.test.BorrowEnd"/>
+    <bean id="calculatePoundageBiz" class="taskflow.xml.test.CalculatePoundageBiz"/>
+    <bean id="mutexCheck" class="taskflow.xml.test.MutexCheck"/>
+
+    <tf:task id="borrowTask" ref="borrow" method="borrow"/>
+    <tf:task id="borrowEndTask" ref="borrowEnd" method="endTask"/>
+    <tf:task id="calculateDayPoundageTask" ref="calculatePoundageBiz" method="calculatorByDay"/>
+    <tf:task id="calculateAverageCapitalPoundageTask" ref="calculatePoundageBiz" method="calculatorAverageCapital"/>
+    <tf:task id="mutexCheckTask" ref="mutexCheck" method="checkMutex"/>
+
+    <tf:work id="applyDayWork" class="taskflow.work.SequentialWork">
+        <tf:task-ref value="mutexCheckTask"/>
+        <tf:task-ref value="borrowTask"/>
+        <tf:task-ref value="calculateDayPoundageTask"/>
+        <tf:task-ref value="borrowEndTask"/>
+    </tf:work>
+
+    <tf:work id="applyAverageCapitalWork" class="taskflow.work.SequentialWork">
+        <tf:task-ref value="mutexCheckTask"/>
+        <tf:task-ref value="borrowTask"/>
+        <tf:task-ref value="calculateAverageCapitalPoundageTask"/>
+        <tf:task-ref value="borrowEndTask"/>
+    </tf:work>
+</beans>

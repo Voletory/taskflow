@@ -162,7 +162,12 @@
             <![CDATA[ ]]>
         </xsd:attribute>
         <xsd:attribute name="class" type="xsd:string" default="taskflow.worker.CustomRouteWork">
-            <![CDATA[ ]]>
+            <xsd:annotation>
+                <xsd:documentation source="java:java.lang.Class"><![CDATA[
+	The fully qualified name of the bean's class, except if it serves only
+	as a parent definition for child bean definitions.
+				]]></xsd:documentation>
+            </xsd:annotation>
         </xsd:attribute>
     </xsd:attributeGroup>
     <xsd:group name="workElements">
