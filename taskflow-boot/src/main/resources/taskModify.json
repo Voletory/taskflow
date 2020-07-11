@@ -1,0 +1,20 @@
+{
+  "workId": "applyAverageCapitalWork",
+  "workClazz": "taskflow.work.SequentialWork",
+  "maxTasks": 100,
+  "traceable": true,
+  "taskRefs": [
+    {
+      "taskId": "mutexCheckTask"
+    },
+    {
+      "taskId": "borrowTask"
+    },
+    {
+      "taskId": "calculatorAverageCapitalPlusInterestTask"
+    },
+    {
+      "taskId": "borrowEndTask"
+    }
+  ]
+}

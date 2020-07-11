@@ -1,0 +1,90 @@
+{
+  "taskBeanDefinitions": [
+    {
+      "beanId": "borrowBiz",
+      "beanClazz": "taskflow.boot.starter.biz.borrow.BorrowBiz"
+    },
+    {
+      "beanId": "borrowEnd",
+      "beanClazz": "taskflow.boot.starter.biz.borrow.BorrowEnd"
+    },
+    {
+      "beanId": "calculatePoundageBiz",
+      "beanClazz": "taskflow.boot.starter.biz.borrow.CalculatePoundageBiz"
+    },
+    {
+      "beanId": "mutexCheck",
+      "beanClazz": "taskflow.boot.starter.biz.borrow.MutexCheck"
+    }
+  ],
+  "taskDefinitions": [
+    {
+      "taskId": "borrowTask",
+      "taskBeanId": "borrowBiz",
+      "method": "borrow"
+    },
+    {
+      "taskId": "borrowEndTask",
+      "taskBeanId": "borrowEnd",
+      "method": "endTask"
+    },{
+      "taskId": "calculateDayPoundageTask",
+      "taskBeanId": "calculatePoundageBiz",
+      "method": "calculatorByDay"
+    },{
+      "taskId": "calculateAverageCapitalPoundageTask",
+      "taskBeanId": "calculatePoundageBiz",
+      "method": "calculatorAverageCapital"
+    },{
+      "taskId": "mutexCheckTask",
+      "taskBeanId": "mutexCheck",
+      "method": "checkMutex"
+    },{
+      "taskId": "calculatorAverageCapitalPlusInterestTask",
+      "taskBeanId": "calculatePoundageBiz",
+      "method": "calculatorAverageCapitalPlusInterest"
+    }
+  ],
+  "workDefinitions": [
+    {
+      "workId": "applyDayWork",
+      "workClazz": "taskflow.work.SequentialWork",
+      "maxTasks": 100,
+      "traceable": true,
+      "taskRefs": [
+        {
+          "taskId": "mutexCheckTask"
+        },
+        {
+          "taskId": "borrowTask"
+        },
+        {
+          "taskId": "calculateDayPoundageTask"
+        },
+        {
+          "taskId": "borrowEndTask"
+        }
+      ]
+    },
+    {
+      "workId": "applyAverageCapitalWork",
+      "workClazz": "taskflow.work.SequentialWork",
+      "maxTasks": 100,
+      "traceable": true,
+      "taskRefs": [
+        {
+          "taskId": "mutexCheckTask"
+        },
+        {
+          "taskId": "borrowTask"
+        },
+        {
+          "taskId": "calculateAverageCapitalPoundageTask"
+        },
+        {
+          "taskId": "borrowEndTask"
+        }
+      ]
+    }
+  ]
+}
